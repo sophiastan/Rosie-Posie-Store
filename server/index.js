@@ -1,14 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-require('./services/ProductService');
+const cors = require('cors');
 
+const dotEnvOptions = {
+  path: __dirname + '../.env'
+}
+
+require('dotenv').config(dotEnvOptions);
+
+// Main App
 const app = express();
 
 app.use(bodyParser.json());
-
-app.get('/', (req, res) => {
-  res.send({ hi: 'bye' });
-});
+app.use(cors());
 
 require('./routes/productRoutes')(app);
 
