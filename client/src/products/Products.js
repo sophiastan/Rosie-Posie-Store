@@ -14,15 +14,18 @@ class Products extends Component {
   async componentDidMount() {
     let productList = await this.state.productService.getProductList();
 
+    console.log(productList);
     if (productList) {
       this.setState({
         productList: productList
       })
+      console.log(productList)
     }
   }
 
   // renderProductList() {
-  //   return this.state.productList.reverse().map(product => {
+  //   const productList = this.state.productList;
+  //   return productList.map(product => {
   //     return (
   //       <div className="card darken-1" key={product.id}>
   //         <div className="card-content">
@@ -32,20 +35,22 @@ class Products extends Component {
   //     )
   //   })
   // }
+  
   render() {
     return (
+      null
       // <div>
       //   {this.renderProductList()}
       // </div>
-      this.state.productList ? this.state.productList.map(product => {
-        return(
-          <div className="card darken-1" key={product.id}>
-          <div className="card-content">
-             <span className="card-title">{product.title}</span>
-           </div>
-         </div>
-        )
-      }) : null
+      // this.state.productList ? this.state.productList.map(product => {
+      //   return(
+      //     <div className="card darken-1" key={product.id}>
+      //     <div className="card-content">
+      //        <span className="card-title">{product.title}</span>
+      //      </div>
+      //    </div>
+      //   )
+      // }) : null
     )
   }
 }

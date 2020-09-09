@@ -12,7 +12,6 @@ export const ProductForm = () => {
 
   useEffect(() => {
     if (clicked) {
-      console.log("postProduct: ", title);
       productService.postProduct(title, description, type, price);
     }
   })

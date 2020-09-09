@@ -1,31 +1,21 @@
 // const Shopify = require('shopify-api-node');
-
+const fetch = require('node-fetch');
 module.exports = app => {
-  this.url = process.env.API_URL;
-  // const shopifyApi = require('shopify-api-node');
-  // this.Shopify = new shopifyApi({
-  //   shop: process.env.SHOP,
-  //   apiKey: process.env.USERNAME,
-  //   password: process.env.PASSWORD
-  // })
-  // const username = process.env.USERNAME;
-  // const password = process.env.PASSWORD;
-  // const shop = process.env.SHOP;
-  // const url = `https://${username}:${password}@${shop}/admin/api/2020-07`;
-  // const url = "https://f8be9e9a5202f857b3ba2422d320d03c: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@rosie-posiee.myshopify.com/admin/api/2020-07";
+  const baseUrl = "https://f8be9e9a5202f857b3ba2422d320d03c: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@rosie-posiee.myshopify.com";
   
   // Retrieves a list of products
-  app.get('/products.json', async function (req, res) {
-    function getProductList() {
-      const endpoint = "/list";
-      return fetch(url + endpoint, {
-        method: 'GET'
-      });
-    }
+  app.get('/getProductList', async function (req, res) {
+    const endpoint = "/admin/api/2020-07/products.json";
+    const product_list = await fetch(baseUrl + endpoint, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET'
+    });
 
-    const product_list = await getProductList();
     const data = await product_list.json();
-
+    console.log("successfully get product list\n", data);
     res.json(data);
   });
 
@@ -60,73 +50,20 @@ module.exports = app => {
   });
 
   // Create a new product
-  // app.post('/products.json', async function (req, res) {
-  //   function postProduct() {
-  //     // const endpoint = "/products";
-  //     // return fetch(url + endpoint, {
-  //     //   method: 'POST',
-  //     //   body: JSON.stringify(req.body)
-  //     // });
-  //     return fetch(url, {
-  //       method: 'POST',
-  //       body: JSON.stringify(req.body)
-  //     });
-  //   }
+  app.post('/postProduct', async function (req, res) {
+    const endpoint = "/admin/api/2020-07/products.json";
 
-  //   console.log(url);
+    const api_response = await fetch(baseUrl + endpoint, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(req.body)
+    });
 
-  //   const api_response = await postProduct();
-  //   const data = await api_response.json();
-
-  //   res.json(data);
-  // });
-
-  // const Router = require('koa-router');
-  // const router = new Router();
-  // router.post('/admin/api/2020-07/products.json', async function (req, res) {
-  //   try {
-  //     const results = await fetch("https://rosie-posiee.myshopify.com/admin/api/2020-07/products.json", {
-  //       headers: {
-  //         'Authorization': 'Basic ' + base64.encode(process.env.USERNAME + ':' + process.env.PASSWORD) 
-  //       },
-  //       method: 'POST',
-  //       body: JSON.stringify(req.body)
-  //     })
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       return json;
-  //     });
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // })
-  // app.post('/admin/api/2020-07/products.json', async function (req, res) {
-  //   try {
-  //     const product = await Shopify.product.create(req.body); 
-  //     const data = await product.json();
-
-  //     res.json(data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // });
-
-   app.post('/admin/api/2020-07/products.json', async function (req, res) {
-    function postProduct() {
-      return fetch("https://rosie-posiee.myshopify.com/admin/api/2020-07/products.json", {
-        headers: {
-          'Authorization': 'Basic ' + base64.encode(process.env.USERNAME + ':' + process.env.PASSWORD) 
-        },
-        method: 'POST',
-        body: JSON.stringify(req.body)
-      });
-    }
-
-    console.log(url);
-
-    const api_response = await postProduct();
     const data = await api_response.json();
-
+    console.log("successfully posted product\n", data);
     res.json(data);
   });
   
