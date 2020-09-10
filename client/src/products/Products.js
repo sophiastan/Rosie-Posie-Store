@@ -6,52 +6,41 @@ class Products extends Component {
     super(props);
 
     this.state = {
-      productService: new ProductService(),
-      productList:[]
+      productService: new ProductService()
     }
   }
 
   async componentDidMount() {
-    let productList = await this.state.productService.getProductList();
+    let listResponse = await this.state.productService.getProductList();
+    let productList = listResponse.products;
 
-    console.log(productList);
-    if (productList) {
-      this.setState({
-        productList: productList
-      })
-      console.log(productList)
-    }
+    this.setState({
+      productList: productList
+    })
   }
-
-  // renderProductList() {
-  //   const productList = this.state.productList;
-  //   return productList.map(product => {
-  //     return (
-  //       <div className="card darken-1" key={product.id}>
-  //         <div className="card-content">
-  //           <span className="card-title">{product.title}</span>
-  //         </div>
-  //       </div>
-  //     )
-  //   })
-  // }
   
   render() {
     return (
-      null
-      // <div>
-      //   {this.renderProductList()}
-      // </div>
-      // this.state.productList ? this.state.productList.map(product => {
-      //   return(
-      //     <div className="card darken-1" key={product.id}>
-      //     <div className="card-content">
-      //        <span className="card-title">{product.title}</span>
-      //      </div>
-      //    </div>
-      //   )
-      // }) : null
-    )
+      <div>
+        {
+          this.state.productList && 
+          this.state.productList.map((product, index) =>
+            <div className="card darken-1" key={index}>
+              <div className="card-content">
+                <span className="card-title"><b>{product.title}</b></span>
+                <p>Description: {product.body_html}</p>
+                <p>Type: {product.product_type}</p>
+                {
+                  product.variants.map((item, i) =>
+                    <p key={i}>Price: {item.price}</p>
+                  )
+                }
+              </div>
+            </div>
+          )
+        }
+      </div>
+    );
   }
 }
 

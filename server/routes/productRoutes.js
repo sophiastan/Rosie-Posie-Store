@@ -1,5 +1,5 @@
-// const Shopify = require('shopify-api-node');
 const fetch = require('node-fetch');
+
 module.exports = app => {
   const baseUrl = "https://f8be9e9a5202f857b3ba2422d320d03c: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@rosie-posiee.myshopify.com";
   
@@ -15,7 +15,7 @@ module.exports = app => {
     });
 
     const data = await product_list.json();
-    console.log("successfully get product list\n", data);
+    // console.log("successfully get product list\n", data);
     res.json(data);
   });
 

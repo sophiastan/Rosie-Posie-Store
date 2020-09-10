@@ -1,7 +1,12 @@
+import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './main/App';
 import * as serviceWorker from './serviceWorker';
+
+// Development only axios helpers!
+import axios from 'axios';
+window.axios = axios;
 
 ReactDOM.render(
   <React.StrictMode>

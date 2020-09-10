@@ -56,13 +56,11 @@ export const ProductForm = () => {
             onChange={e => setPrice(e.target.value)}
           />
         </div>
-        <Link to={"/product/new"}>
+        <Link to="/" className="red btn-flat white-text">Cancel</Link>
+        <Link to={"/product"}>
           <button
             type="button"
-            className="btn btn-primary form-control"
-            // onClick={() => {console.log(title, description, type, price)}}
-            // onClick={() => {productService.postProduct(title, description, type, price)}}
-            // onClick={() => setClicked(true) && productService.postProduct(title, description, type, price)}
+            className="teal btn-flat right white-text"
             onClick={() => setClicked(true)}
           >Submit
           </button>
