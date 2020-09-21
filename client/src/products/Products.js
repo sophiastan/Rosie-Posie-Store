@@ -17,6 +17,13 @@ class Products extends Component {
     this.setState({
       productList: productList
     })
+
+    console.log("productList: ", this.state.productList);
+  }
+
+  deleteProduct = (id) => {
+    this.state.productService.deleteProduct(id);
+    console.log(this.state.productList);
   }
   
   render() {
@@ -35,6 +42,11 @@ class Products extends Component {
                     <p key={i}>Price: {item.price}</p>
                   )
                 }
+                <button 
+                  type="button"
+                  className="red btn-flat white-text"
+                  onClick={() => this.deleteProduct(product.id)}>Delete
+                </button>
               </div>
             </div>
           )

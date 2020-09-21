@@ -13,6 +13,7 @@ export const ProductForm = () => {
   useEffect(() => {
     if (clicked) {
       productService.postProduct(title, description, type, price);
+      alert(`Added ${title}!`);
     }
   })
   
@@ -56,10 +57,10 @@ export const ProductForm = () => {
             onChange={e => setPrice(e.target.value)}
           />
         </div>
-        <Link to="/" className="red btn-flat white-text">Cancel</Link>
-        <Link to={"/product"}>
+        <Link to="/" className="red btn-flat white-text">Back</Link>
+        <Link to={"/product/new"}>
           <button
-            type="button"
+            type="submit"
             className="teal btn-flat right white-text"
             onClick={() => setClicked(true)}
           >Submit

@@ -79,6 +79,7 @@ class ProductService {
       method: 'DELETE'
     });
 
+    console.log(product_id);
     return await res.json();
   }
 }
