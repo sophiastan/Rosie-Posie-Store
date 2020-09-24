@@ -11,17 +11,10 @@ class ProductService {
     return await res.json();
   }
 
-  // Retrieves a count of products
-  getProductCount = async () => {
-    const url = 'http://localhost:5000/getProductCount';
-    const res = await fetch(url);
-    return await res.json();
-  }
-
   // Retrieves a single product
   getProduct = async (product_id) => {
     if (product_id) {
-      const url = `http://localhost:5000/${product_id}getProduct`;
+      const url = `http://localhost:5000/getProduct/${product_id}`;
       const res = await fetch(url);
       return await res.json();
     }
@@ -45,7 +38,10 @@ class ProductService {
           product_type: type,
           variants: [{
             price: price
-          }]
+          }],
+          // images: [{
+          //   src: src
+          // }]
         }
       })
     });
@@ -54,15 +50,24 @@ class ProductService {
   }
 
   // Updates a product
-  putProduct = async (product_id, body) => {
-    const url = `http://localhost:5000/${product_id}/putProduct`;
+  updateProduct = async (product_id, title, description, type, price) => {
+    const url = `http://localhost:5000/${product_id}/updateProduct`;
     const res = await fetch(url, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       method: 'PUT',
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        product: {
+          title: title,
+          body_html: description,
+          product_type: type,
+          variants: [{
+            price: price
+          }]
+        }
+      })
     });
 
     return await res.json();
@@ -80,6 +85,13 @@ class ProductService {
     });
 
     console.log(product_id);
+    return await res.json();
+  }
+
+  // Retrieves a count of products
+  getProductCount = async () => {
+    const url = 'http://localhost:5000/getProductCount';
+    const res = await fetch(url);
     return await res.json();
   }
 }

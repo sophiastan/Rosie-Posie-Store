@@ -18,35 +18,20 @@ module.exports = app => {
     res.json(data);
   });
 
-  // // Retrieves a count of products
-  // app.get('/products/count.json', async function (req, res) {
-  //   function getProductCount() {
-  //     const endpoint = "/count";
-  //     return fetch(url + endpoint, {
-  //       method: 'GET'
-  //     });
-  //   }
+  // Retrieves a single product
+  app.get('/getProduct/:product_id', async function (req, res) {
+    const endpoint = "/admin/api/2020-07/products/" + req.params.product_id + ".json";
+    const product = await fetch(baseUrl + endpoint, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET'
+    });
 
-  //   const product_count = await getProductCount();
-  //   const data = await product_count.json();
-
-  //   res.json(data);
-  // });
-
-  // // Retrieves a single product
-  // app.get('/products/:product_id.json', async function (req, res) {
-  //   function getProduct() {
-  //     const endpoint = "/products/" + req.params.product_id;
-  //     return fetch(url + endpoint, {
-  //       method: 'GET'
-  //     });
-  //   }
-
-  //   const product = await getProduct();
-  //   const data = await product.json();
-
-  //   res.json(data);
-  // });
+    const data = await product.json();
+    res.json(data);
+  });
 
   // Create a new product
   app.post('/postProduct', async function (req, res) {
@@ -62,7 +47,7 @@ module.exports = app => {
     });
 
     const data = await api_response.json();
-    // console.log("successfully posted product\n", data);
+    console.log("successfully posted product\n", JSON.stringify(req.body));
     res.json(data);
   });
 
@@ -76,6 +61,39 @@ module.exports = app => {
 
     const data = await api_response.json();
     res.json(data);
-  })
+  });
+
+   // Updates a product
+   app.put('/:product_id/updateProduct', async function (req, res) {
+    const endpoint = `/admin/api/2020-07/products/${req.params.product_id}.json`;
+
+    const api_response = await fetch(baseUrl + endpoint, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(req.body)
+    });
+
+    const data = await api_response.json();
+    console.log("successfully updated product\n", data);
+    res.json(data);
+  });
+
+    // // Retrieves a count of products
+  // app.get('/products/count.json', async function (req, res) {
+  //   function getProductCount() {
+  //     const endpoint = "/count";
+  //     return fetch(url + endpoint, {
+  //       method: 'GET'
+  //     });
+  //   }
+
+  //   const product_count = await getProductCount();
+  //   const data = await product_count.json();
+
+  //   res.json(data);
+  // });
   
 }

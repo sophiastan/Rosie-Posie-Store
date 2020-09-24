@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import Header from './Header';
 import Home from './Home';
-// import Products from '../products/Products';
 import ProductForm from '../products/ProductForm';
+import EditProduct from '../products/EditProduct';
 
 class App extends Component {
 
@@ -11,9 +12,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
+          <Header />
           <Route exact path="/" component={Home} />
-          {/* <Route exact path="/product" component={Products} /> */}
           <Route path="/product/new" component={ProductForm} />
+          <Route path="/product/:product_id" component={EditProduct} />
         </div>
       </BrowserRouter>
     )
