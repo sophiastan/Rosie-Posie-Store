@@ -41,12 +41,15 @@ export const ProductForm = () => {
         </div>
         <div className="form-group">
           <label>Type</label>
-          <input 
-            type="text"
-            className="form-control"
-            placeholder="Type"
-            onChange={e => setType(e.target.value)}
-          />
+          <select className="browser-default" onChange={e => setType(e.target.value)}>
+            <option value="N/A">N/A</option>
+            <option value="Drink">Drink</option>
+            <option value="Vegetable">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Toy">Toy</option>
+            <option value="Technology">Technology</option>
+            <option value="Electronics">Electronics</option>
+          </select>
         </div>
         <div className="form-group">
           <label>Price</label>
@@ -71,7 +74,6 @@ export const ProductForm = () => {
           <button
             type="submit"
             className="teal btn-flat right white-text"
-            // onClick={() => setClicked(true)}
             onClick={() => postProduct(title, description, type, price)}
           >Submit
           </button>

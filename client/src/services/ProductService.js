@@ -52,6 +52,7 @@ class ProductService {
   // Updates a product
   updateProduct = async (product_id, title, description, type, price) => {
     const url = `http://localhost:5000/${product_id}/updateProduct`;
+    console.log("productservice PRICE: ", price);
     const res = await fetch(url, {
       headers: {
         Accept: 'application/json',
@@ -83,8 +84,6 @@ class ProductService {
       },
       method: 'DELETE'
     });
-
-    console.log(product_id);
     return await res.json();
   }
 
