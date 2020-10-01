@@ -6,12 +6,12 @@ export const ProductForm = () => {
   const productService = new ProductService();
   const [ title, setTitle ] = useState("");
   const [ description, setDescription ] = useState("");
-  const [ type, setType ] = useState("");
+  const [ category, setCat ] = useState("");
   const [ price, setPrice ] = useState("");
   // const [ src, setImage ] = useState("");
 
-  const postProduct = (title, description, type, price) => {
-    productService.postProduct(title, description, type, price);
+  const postProduct = (title, description, category, price) => {
+    productService.postProduct(title, description, category, price);
     alert(`Added ${title}!`);
   }
 
@@ -40,8 +40,8 @@ export const ProductForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Type</label>
-          <select className="browser-default" onChange={e => setType(e.target.value)}>
+          <label>Category</label>
+          <select className="browser-default" onChange={e => setCat(e.target.value)}>
             <option value="N/A">N/A</option>
             <option value="Drink">Drink</option>
             <option value="Vegetable">Vegetable</option>
@@ -74,7 +74,7 @@ export const ProductForm = () => {
           <button
             type="submit"
             className="teal btn-flat right white-text"
-            onClick={() => postProduct(title, description, type, price)}
+            onClick={() => postProduct(title, description, category, price)}
           >Submit
           </button>
         </Link>

@@ -11,7 +11,7 @@ class EditProduct extends Component {
       product_id: props.match.params.product_id,
       title: "",
       description: "",
-      type: "",
+      category: "",
       price: ""
     }
   }
@@ -38,8 +38,8 @@ class EditProduct extends Component {
     console.log("onProductChange: ", this.state.price);
   }
 
-  updateProduct = (title, description, type, price) => {
-    this.state.productService.updateProduct(title, description, type, price);
+  updateProduct = (title, description, category, price) => {
+    this.state.productService.updateProduct(title, description, category, price);
     console.log(price);
     alert(`Updated ${title}!`);
   }
@@ -75,15 +75,19 @@ class EditProduct extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Type</label>
-                  <input 
-                    type="text"
-                    name="type"
-                    className="form-control"
-                    placeholder="Type"
-                    // value={this.state.product.product_type}
-                    onChange={this.onProductChange}
-                  />
+                  <label>Category</label>
+                  <select className="browser-default" 
+                    name="category" 
+                    // value={this.state.product_type}
+                    onChange={this.onProductChange}>
+                    <option value="N/A">N/A</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Toy">Toy</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Electronics">Electronics</option>
+                  </select>
                 </div>
                 <div className="form-group">
                   <label>Price</label>
@@ -105,7 +109,7 @@ class EditProduct extends Component {
                       this.state.product_id,
                       this.state.title, 
                       this.state.description, 
-                      this.state.type, 
+                      this.state.category, 
                       this.state.price
                     )}>
                     Save

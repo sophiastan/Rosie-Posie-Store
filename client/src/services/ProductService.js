@@ -22,7 +22,7 @@ class ProductService {
   }
 
   // Create a new product 
-  postProduct = async (title, description, type, price) => {
+  postProduct = async (title, description, category, price) => {
     const url = 'http://localhost:5000/postProduct';
 
     const res = await fetch(url, {
@@ -35,7 +35,7 @@ class ProductService {
         product: {
           title: title,
           body_html: description,
-          product_type: type,
+          product_type: category,
           variants: [{
             price: price
           }],
@@ -50,7 +50,7 @@ class ProductService {
   }
 
   // Updates a product
-  updateProduct = async (product_id, title, description, type, price) => {
+  updateProduct = async (product_id, title, description, category, price) => {
     const url = `http://localhost:5000/${product_id}/updateProduct`;
     console.log("productservice PRICE: ", price);
     const res = await fetch(url, {
@@ -63,7 +63,7 @@ class ProductService {
         product: {
           title: title,
           body_html: description,
-          product_type: type,
+          product_type: category,
           variants: [{
             price: price
           }]
