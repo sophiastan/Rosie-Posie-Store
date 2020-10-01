@@ -52,7 +52,7 @@ module.exports = app => {
   });
 
   app.delete('/:product_id/deleteProduct', async function (req, res) {
-    console.log(req.params.product_id);
+    console.log("Deleted: ", req.params.product_id);
     const endpoint = `/admin/api/2020-07/products/${req.params.product_id}.json`;
 
     const api_response = await fetch(baseUrl + endpoint, {
