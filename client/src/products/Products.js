@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductService from '../services/ProductService';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Products extends Component {
   constructor(props) {
@@ -8,7 +8,8 @@ class Products extends Component {
 
     this.state = {
       productService: new ProductService(),
-      product_id: null
+      product_id: null,
+      goBack: false
     }
   }
 
@@ -19,32 +20,53 @@ class Products extends Component {
     this.setState({
       productList: productList
     })
-
-    console.log("productList: ", this.state.productList);
+    console.log(this.state.productList);
   }
-
-  // TODO: needs to refresh after deleting product
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.product_id !== state.product_id) {
-  //     return {
-  //       product_id: props.product_id
-  //     };
-  //   }
-  //   return null;
-  // }
 
   deleteProduct = (id) => {
     this.state.productService.deleteProduct(id);
     alert(`Deleted ${id}!`);
 
     this.setState({
-      product_id: id
+      product_id: id,
+      goBack: true
     });
+  }
+
+  selectCat = (event) => {
+    const category = event.target.value;
+
+    this.setState({
+      selectedCat: category
+    });
+    const filteredProducts = [];
+    this.state.productList.map(product => {
+      if (product.product_type === this.state.selectedCat) {
+        filteredProducts.push(product);
+      }
+    });
+
+    console.log(filteredProducts);
   }
   
   render() {
+    console.log(this.state.selectedCat)
+    if (this.state.goBack) {
+      return (<Redirect to="/" />);
+    }
+
     return (
       <div>
+        <label>Category</label>
+        <select className="browser-default" onChange={this.selectCat}>
+          <option value="All">Show All</option>
+          <option value="Drink">Drink</option>
+          <option value="Vegetable">Vegetable</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Toy">Toy</option>
+          <option value="Technology">Technology</option>
+          <option value="Electronics">Electronics</option>
+        </select>
         {
           this.state.productList && 
           this.state.productList.map((product, index) =>          

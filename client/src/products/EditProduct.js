@@ -8,11 +8,7 @@ class EditProduct extends Component {
 
     this.state = {
       productService: new ProductService(),
-      product_id: props.match.params.product_id,
-      title: "",
-      description: "",
-      category: "",
-      price: ""
+      product_id: props.match.params.product_id
     }
   }
 
@@ -30,17 +26,21 @@ class EditProduct extends Component {
     const name = event.target.name;
     const val = event.target.value;
 
+    console.log("val: ", val);
     this.setState({
       [name]: val
     });
-    
-    // TODO: price does not update, sets to 0.00
-    console.log("onProductChange: ", this.state.price);
+    return {
+      [name]: val
+    }
   }
 
-  updateProduct = (title, description, category, price) => {
-    this.state.productService.updateProduct(title, description, category, price);
-    console.log(price);
+  updateProduct = (product_id, title, description, category, price) => {
+    console.log("title: ", title);
+    console.log("description: ", description);
+    console.log("category: ", category);
+    console.log("price: ", price);
+    this.state.productService.updateProduct(product_id, title, description, category, price);
     alert(`Updated ${title}!`);
   }
 
@@ -59,7 +59,7 @@ class EditProduct extends Component {
                     name="title"
                     className="form-control"
                     placeholder="Title"
-                    // value={this.state.product.title}
+                    defaultValue={this.state.product.title}
                     onChange={this.onProductChange}
                   />
                 </div>
@@ -70,7 +70,7 @@ class EditProduct extends Component {
                     name="description"
                     className="form-control"
                     placeholder="Description"
-                    // value={this.state.product.body_html}
+                    defaultValue={this.state.product.body_html}
                     onChange={this.onProductChange}
                   />
                 </div>
@@ -78,9 +78,8 @@ class EditProduct extends Component {
                   <label>Category</label>
                   <select className="browser-default" 
                     name="category" 
-                    // value={this.state.product_type}
+                    value={this.state.product.product_type}
                     onChange={this.onProductChange}>
-                    <option value="N/A">N/A</option>
                     <option value="Drink">Drink</option>
                     <option value="Vegetable">Vegetable</option>
                     <option value="Fruit">Fruit</option>
@@ -92,11 +91,11 @@ class EditProduct extends Component {
                 <div className="form-group">
                   <label>Price</label>
                   <input 
-                    type="text"
+                    type="number"
                     name="price"
                     className="form-control"
                     placeholder="Price"
-                    // value={this.state.product.variants[0].price}
+                    defaultValue={this.state.product.variants[0].price}
                     onChange={this.onProductChange}
                   />
                 </div>
@@ -105,13 +104,14 @@ class EditProduct extends Component {
                   <button
                     type="submit"
                     className="teal btn-flat white-text right"
-                    onClick={() => this.updateProduct(
+                    onClick={() => { console.log("render price: ", this.state.price);
+                      this.updateProduct(
                       this.state.product_id,
                       this.state.title, 
                       this.state.description, 
                       this.state.category, 
                       this.state.price
-                    )}>
+                    )}}>
                     Save
                   </button>
                 </Link>

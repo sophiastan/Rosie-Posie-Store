@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ProductService from '../services/ProductService';
 
 export const ProductForm = () => {
@@ -8,15 +8,19 @@ export const ProductForm = () => {
   const [ description, setDescription ] = useState("");
   const [ category, setCat ] = useState("");
   const [ price, setPrice ] = useState("");
+  const [ goBack, setBack ] = useState(false);
   // const [ src, setImage ] = useState("");
 
   const postProduct = (title, description, category, price) => {
     productService.postProduct(title, description, category, price);
+    setBack(true);
     alert(`Added ${title}!`);
   }
 
-  // TODO: needs to refresh after posting product
-  
+  if (goBack) {
+    return (<Redirect to="/" />);
+  }
+
   return (
     <div className="container">
       <h1 className="text-center mt-5">Add Product</h1>
@@ -42,7 +46,7 @@ export const ProductForm = () => {
         <div className="form-group">
           <label>Category</label>
           <select className="browser-default" onChange={e => setCat(e.target.value)}>
-            <option value="N/A">N/A</option>
+            <option value="Select">Select One</option>
             <option value="Drink">Drink</option>
             <option value="Vegetable">Vegetable</option>
             <option value="Fruit">Fruit</option>
@@ -70,14 +74,12 @@ export const ProductForm = () => {
           />
         </div> */}
         <Link to="/" className="red btn-flat white-text">Back</Link>
-        <Link to={"/product/new"}>
-          <button
-            type="submit"
-            className="teal btn-flat right white-text"
-            onClick={() => postProduct(title, description, category, price)}
-          >Submit
-          </button>
-        </Link>
+        <button
+          type="submit"
+          className="teal btn-flat right white-text"
+          onClick={() => postProduct(title, description, category, price)}
+        >Submit
+        </button>
       </form>
     </div>
   );

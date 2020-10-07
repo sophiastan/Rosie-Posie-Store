@@ -11,13 +11,6 @@ const Header = () => {
             className="brand-logo">
             <i className="material-icons">Home</i>
           </Link>
-          {/* <div className="dropdown right">
-            <a className="dropdown-toggle" data-toggle="dropdown" href="/">Dropdown
-            <span className="caret"></span></a>
-            <ul className="dropdown-menu">
-              <li><a href="/">Item 1</a></li>
-            </ul>
-          </div> */}
         </div>
       </nav>
     </div>
